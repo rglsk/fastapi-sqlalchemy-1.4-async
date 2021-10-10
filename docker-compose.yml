@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres:12.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+
+  app:
+    container_name: tutorial
+    build:
+      context: .
+    volumes:
+      - ./:/app/
+    command: bash -c "uvicorn app.main:app --reload --host 0.0.0.0 --port 8080"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
+      - PYTHONUNBUFFERED
+      - DEBUG
+      - PORT
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+volumes:
+  postgresql_data:
