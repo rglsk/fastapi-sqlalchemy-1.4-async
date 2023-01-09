@@ -51,7 +51,6 @@ def do_run_migrations(connection):
     )
 
     with context.begin_transaction():
-        # connection.execute(text(f"CREATE SCHEMA IF NOT EXISTS {TENANT_SCHEMA_NAME};"))
         context.run_migrations()
 
 async def run_migrations_online():
@@ -78,10 +77,6 @@ async def run_migrations_online():
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
-        # context.configure(connection=connection, target_metadata=target_metadata)
-
-        # with context.begin_transaction():
-        #     context.run_migrations()
 
 
 if context.is_offline_mode():
