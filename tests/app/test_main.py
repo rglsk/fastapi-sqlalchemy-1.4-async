@@ -2,7 +2,7 @@ import pytest
 from httpx import AsyncClient
 from starlette import status
 
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.anyio
 
 
 async def test_main(async_client: AsyncClient) -> None:

@@ -8,7 +8,7 @@ from starlette import status
 from app.db.repositories.coupons import CouponsRepository
 from app.models.schema.coupons import InCouponSchema
 
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.anyio
 
 
 async def test_coupon_create(
